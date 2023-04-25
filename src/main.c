@@ -1,7 +1,7 @@
 #include "valley.h"
 
 
-int main()
+int main(void)
 {
 	mainSetup();
 	

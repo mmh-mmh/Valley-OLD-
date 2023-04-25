@@ -3,11 +3,15 @@
 PlayerStruct * playerSetup(int y, int x)
 {
 	PlayerStruct * player = malloc(sizeof(PlayerStruct));
+	player->backpack=malloc(sizeof(Inventory));
+	
 	player->position.y = y;
 	player->position.x = x;
 	player->skin = '@';
 	player->health = 20;
-	
+
+	//giving the player the first weapon of the game 
+	player->backpack=genSword(1,20,"Starter Sword");
 	return player;
 }
 

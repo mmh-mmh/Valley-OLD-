@@ -4,8 +4,8 @@ CFLAGS = -lncurses -I$(IDIR)
 IDIR = ./include/
 SRCDIR = ./src/
 
-SOURCES = $(SRCDIR)*.c
-
+SOURCES = $(SRCDIR)*.c\
+          $(SRCDIR)src/inventory/*.c
 all: valley run clean
 
 valley:
