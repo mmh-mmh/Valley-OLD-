@@ -31,7 +31,7 @@ typedef struct PlayerStruct
 	Position position;
 	char skin;
 	int health;
-	Inventory *backpack;
+	Item **backpack;
 } PlayerStruct;
 
 

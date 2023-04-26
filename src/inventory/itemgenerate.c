@@ -1,14 +1,16 @@
 
 #include "inventory.h"
 
-Inventory * genSword(int damage, int durability, char *name_sword)
+Item ** genSword(int damage, int durability, char *name_sword)
 {
-	Inventory* item=malloc(sizeof(Inventory));
-	item->type=Weapon_Type;
-	strcpy(item->name,name_sword);
-	item->mainItems.weapon=malloc(sizeof(Weapon));
-	item->weapon.damage=damage;
-	item->weapon.durability=durability;
-	return item;
+	Item ** blade=malloc(sizeof(Item*));
+	*blade=malloc(sizeof(Item));
+	(*blade)->type=0;
+	strcpy((*blade)->name,name_sword);
+	(*blade)->mainItems.weapon=malloc(sizeof(Weaponstats));
+	(*blade)->mainItems.weapon->damage=damage;
+	(*blade)->mainItems.weapon->durability=durability;
+
+	return blade;
 }
 

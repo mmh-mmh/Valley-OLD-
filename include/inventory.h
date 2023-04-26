@@ -12,9 +12,7 @@ typedef struct
 		//~ Potions * potions;
 	}mainItems;
 	char name[256];
-}Inventory;
-
-//Sword generate fonction
-Inventory * genSword(int damage, int health,char *name_sword);
+}Item;
+Item ** genSword(int damage, int durability, char *name_sword)
 
 #endif
