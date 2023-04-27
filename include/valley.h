@@ -24,7 +24,7 @@ typedef struct Position
 {
 	int x;
 	int y;
-} Position;
+}Position;
 
 typedef struct PlayerStruct
 {

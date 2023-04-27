@@ -3,7 +3,7 @@
 PlayerStruct * playerSetup(int y, int x)
 {
 	PlayerStruct * player = malloc(sizeof(PlayerStruct));
-	player->backpack=malloc(sizeof(Inventory));
+	player->backpack=malloc(sizeof(Item));
 	
 	player->position.y = y;
 	player->position.x = x;

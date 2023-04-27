@@ -1,6 +1,7 @@
 #ifndef INVENTORY_H 
 #define INVENTORY_H 
 #include "weapons.h"
+
 typedef enum{WEAPON_TYPE, OBJECTS_TYPE,POTIONS_TYPE}itemType;
 typedef struct 
 {
@@ -13,6 +14,6 @@ typedef struct
 	}mainItems;
 	char name[256];
 }Item;
-Item ** genSword(int damage, int durability, char *name_sword)
+Item ** genSword(int damage, int durability, char *name_sword);
 
 #endif

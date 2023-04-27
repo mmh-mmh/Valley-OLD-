@@ -1,6 +1,5 @@
 
 #include "inventory.h"
-
 Item ** genSword(int damage, int durability, char *name_sword)
 {
 	Item ** blade=malloc(sizeof(Item*));
