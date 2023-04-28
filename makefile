@@ -2,13 +2,9 @@ CC = gcc
 CFLAGS = -lncurses -I$(IDIR)
 
 IDIR = ./include/
-IDIR += ./src/inventory/
-
 SRCDIR = ./src/
 
-SOURCES = $(SRCDIR)*.c\
-          $(SRCDIR)inventory/*.c
-
+SOURCES = $(SRCDIR)*.c
 all: valley run clean
 
 valley:
@@ -19,4 +15,3 @@ run:
 
 clean:
 	rm valley
-

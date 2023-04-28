@@ -1,16 +1,21 @@
 #include "valley.h"
+#include "inventory.h"
 
 PlayerStruct * playerSetup(int y, int x)
 {
-	PlayerStruct * player = malloc(sizeof(PlayerStruct));	
+	PlayerStruct * player = malloc(sizeof(PlayerStruct));
 	player->position.y = y;
 	player->position.x = x;
 	player->skin = '@';
 	player->health = 20;
-	player->backpack = malloc(sizeof(Item *) * 3);
+	player->backpack=malloc(sizeof(Item*)*3);
 	
-	//giving the player the first weapon of the game 
-	player->backpack[0] = genSword(1, 20, "Starter Sword");
+	for(int i=0; i<3; i++)
+		player->backpack[i]=malloc(sizeof(Item*));
+	//start set
+	player->backpack[0]=genSword(1,20,"startersword");
+	
+	
 	return player;
 }
 

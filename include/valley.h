@@ -3,10 +3,8 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #include "inventory.h"
-
 
 #define MAP_HEIGHT 41
 #define MAP_WIDTH 81
@@ -24,14 +22,14 @@ typedef struct Position
 {
 	int x;
 	int y;
-}Position;
+} Position;
 
 typedef struct PlayerStruct
 {
 	Position position;
 	char skin;
 	int health;
-	struct Item **backpack;
+	Item ** backpack;
 } PlayerStruct;
 
 
