@@ -58,9 +58,11 @@ int drawMapInGameWindow(WINDOW * gameWindow, char ** map, PlayerStruct * player)
 			}
 		}
 	}
-	
+
 	mvwprintw(gameWindow, GAME_WINDOW_HEIGHT/2, GAME_WINDOW_WIDTH/2, "%c", player->skin);
-	
+
+	wresize(gameWindow, GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH);
+	box(gameWindow, 0, 0);
 	wrefresh(gameWindow);
 	
 	return 0;

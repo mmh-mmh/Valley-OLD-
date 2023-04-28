@@ -19,6 +19,7 @@ int main()
 		
 		//change the player position
 		handlePlayerInput(player, input, map);
+
 		//draw map arround the player, in the window's boundaries
 		drawMapInGameWindow(gameWindow, map, player);
 	}
@@ -31,6 +32,7 @@ int mainSetup()
 {
 	srand(time(NULL));
 	initscr();
+	refresh();
 	cbreak();
 	noecho();
 	curs_set(0);
