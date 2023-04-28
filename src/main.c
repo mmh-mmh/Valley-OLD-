@@ -32,7 +32,6 @@ int mainSetup()
 {
 	srand(time(NULL));
 	initscr();
-	refresh();
 	cbreak();
 	noecho();
 	curs_set(0);
