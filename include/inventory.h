@@ -14,6 +14,6 @@ typedef struct
 	}mainItems;
 	char name[256];
 }Item;
-Item ** genSword(int damage, int durability, char *name_sword);
+Item * genSword(int damage, int durability, char *name_sword);
 
 #endif
