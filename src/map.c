@@ -146,6 +146,7 @@ char ** mapRandHouseSetup(char ** map)
 			if(x == doorPos.x && y == doorPos.y)
 			{
 				map[y][x] = ' ';
+				unblockDoor(map, &doorPos);
 			}
 			else if (y == houseY || y == houseY + houseHeight - 1 || x == houseX || x == houseX + houseWidth - 1)
 			{
@@ -159,4 +160,20 @@ char ** mapRandHouseSetup(char ** map)
 	}
 
 	return map;
+}
+
+int unblockDoor(char ** map, Position * doorPos)
+{
+	for(int y = (doorPos->y - 1); y <= (doorPos->y + 1); y++)
+	{
+		for(int x = (doorPos->x - 1); x <= (doorPos->x + 1); x++)
+		{
+			if(map[y][x] == '&')
+			{
+				map[y][x] = '.';
+			}
+		}
+	}
+
+	return 0;
 }

@@ -36,11 +36,3 @@ int mainSetup()
 	noecho();
 	curs_set(0);
 }
-
-
-
-
-
-
-
-

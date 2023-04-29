@@ -47,6 +47,7 @@ int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
 char ** mapRandSandSetup(char ** map);
 char ** mapRandHouseSetup(char ** map);
 char ** mapRandRockSetup(char ** map);
+int unblockDoor(char ** map, Position * doorPos);
 
 //window fonctions
 WINDOW * gameWindowSetup(int height, int width, int y, int x);
