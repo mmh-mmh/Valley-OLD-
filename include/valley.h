@@ -4,6 +4,8 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
+#include <menu.h>
+#include <unistd.h>
 #include "inventory.h"
 
 #define MAP_HEIGHT 41
@@ -35,6 +37,12 @@ typedef struct PlayerStruct
 
 //main fonctions
 int mainSetup();
+void loading();
+
+//menu fonctions;
+void closeMenu(int numberItems, MENU * menu, ITEM ** items);
+int mainMenu(int numberItems, char * choices[]);
+void menuLoop();
 
 //player fonctions
 PlayerStruct * playerSetup(int y, int x);
