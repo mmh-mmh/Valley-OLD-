@@ -7,7 +7,7 @@ int main()
 	mainSetup();
 
 	/*loading();*/
-
+	
 	menuLoop();
 
 	PlayerStruct * player = playerSetup(PLAYER_START_POSITION_Y, PLAYER_START_POSITION_X); 
