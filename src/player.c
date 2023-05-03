@@ -21,35 +21,35 @@ PlayerStruct * playerSetup(int y, int x)
 
 int handlePlayerInput(PlayerStruct * player, char input, char ** map, char ** mapInmovableSave)
 {
-	Position * posDif;
-	posDif = malloc(sizeof(Position));
+	Position * posDiff;
+	posDiff = malloc(sizeof(Position));
 	
 	switch(input)
 	{
 		
 		case 'z' :
 		case 'Z' :
-			posDif->y = - 1;
-			posDif->x = 0;
-			playerMove(player, posDif, map, mapInmovableSave);
+			posDiff->y = - 1;
+			posDiff->x = 0;
+			playerMove(player, posDiff, map, mapInmovableSave);
 			break;
 		case 's' :
 		case 'S' :
-			posDif->y = + 1;
-			posDif->x = 0;
-			playerMove(player, posDif, map, mapInmovableSave);
+			posDiff->y = + 1;
+			posDiff->x = 0;
+			playerMove(player, posDiff, map, mapInmovableSave);
 			break;
 		case 'q' :
 		case 'Q' :
-			posDif->y = 0;
-			posDif->x = - 1;
-			playerMove(player, posDif, map, mapInmovableSave);
+			posDiff->y = 0;
+			posDiff->x = - 1;
+			playerMove(player, posDiff, map, mapInmovableSave);
 			break;
 		case 'd' :
 		case 'D' :
-			posDif->y = 0;
-			posDif->x = + 1;
-			playerMove(player, posDif, map, mapInmovableSave);
+			posDiff->y = 0;
+			posDiff->x = + 1;
+			playerMove(player, posDiff, map, mapInmovableSave);
 			break;
 		default :
 			break;
@@ -59,20 +59,20 @@ int handlePlayerInput(PlayerStruct * player, char input, char ** map, char ** ma
 }
 
 
-int playerMove(PlayerStruct * player, Position * posDif, char ** map, char ** mapInmovableSave)
+int playerMove(PlayerStruct * player, Position * posDiff, char ** map, char ** mapInmovableSave)
 {
 
-	switch (map[player->position.y + posDif->y][player->position.x + posDif->x])
+	switch (map[player->position.y + posDiff->y][player->position.x + posDiff->x])
 	{
 		default :
-			player->position.y += posDif->y;
-			player->position.x += posDif->x;
+			player->position.y += posDiff->y;
+			player->position.x += posDiff->x;
 			break;	
 		case '#':
 		case '&':
 			break;
 		case 'O':
-			handleMovable(player, posDif, map, mapInmovableSave);
+			handleMovable(player, posDiff, map, mapInmovableSave);
 			break;
 	}
 
