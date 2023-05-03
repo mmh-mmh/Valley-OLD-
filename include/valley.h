@@ -32,6 +32,15 @@ typedef struct PlayerStruct
 	Item ** backpack;
 } PlayerStruct;
 
+typedef struct
+{
+	int health;
+	int attack;
+	char skin;
+	int movement;
+	Position coordinates;
+}MobStruct;
+
 
 //main fonctions
 int mainSetup();
@@ -45,9 +54,12 @@ int playerMove(PlayerStruct * player, Position * newPosition, char ** map);
 char ** mapSetup(int height, int width);
 int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
 char ** mapRandSandSetup(char ** map);
-char ** mapRandHouseSetup(char ** map);
+char ** mapRandHouseSetup(char ** map,Position Housepos);
 char ** mapRandRockSetup(char ** map);
 int unblockDoor(char ** map, Position * doorPos);
+//Mob functions
+MobStruct * genMonster(int health,int attack,char skin,int movement,int y,int x);
+void addmonster(char ** map, int width,int height,Position *housepos);
 
 //window fonctions
 WINDOW * gameWindowSetup(int height, int width, int y, int x);

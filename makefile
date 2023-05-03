@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lncurses -I$(IDIR)
+CFLAGS = -lncurses -lmath -I$(IDIR)
 
 IDIR = ./include/
 SRCDIR = ./src/
