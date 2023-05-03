@@ -4,32 +4,36 @@ char ** mapSetup(int height, int width)
 {	
 	char ** map;
 	map = malloc(sizeof(char*) * height);
-	for(int i = 0; i < height; i++)
+	for(int y = 0; y < height; y++)
 	{
-		map[i] = malloc(sizeof(char*) * width);
+		map[y] = malloc(sizeof(char*) * width);
 		
 	}
 	
-	for (int i = 0; i < height; i++)
+	for (int y = 0; y < height; y++)
 	{
-		for (int j = 0; j < width; j++)
+		for (int x = 0; x < width; x++)
 		{
-			if (i == 0 || i == height-1 || j == 0 || j == width-1)
+			if (y == 0 || y == height-1 || x == 0 || x == width-1)
 			{
-				map[i][j] = '#';
+				map[y][x] = '#';
 			}
 			else
 			{
-				map[i][j] = '.';
+				map[y][x] = '.';
 			}
 		}
 	}
-	
-	map = mapRandSandSetup(map);
-	map = mapRandRockSetup(map);
-	map = mapRandHouseSetup(map);
-	
 	return map;
+}
+
+int mapInmovableGeneration(char ** map)
+{
+	mapRandSandGeneration(map);
+	mapRandRockGeneration(map);
+	mapRandHouseGeneration(map);
+
+	return 0;
 }
 
 
@@ -70,7 +74,7 @@ int drawMapInGameWindow(WINDOW * gameWindow, char ** map, PlayerStruct * player)
 
 
 
-char ** mapRandSandSetup(char ** map)
+int mapRandSandGeneration(char ** map)
 {
 	
 	int proba = 5;
@@ -86,10 +90,10 @@ char ** mapRandSandSetup(char ** map)
 			}
 		}
 	}
-	return map;
+	return 0;
 }
 
-char ** mapRandRockSetup(char ** map)
+int mapRandRockGeneration(char ** map)
 {
 
 	int proba = 1;
@@ -106,10 +110,10 @@ char ** mapRandRockSetup(char ** map)
 			}
 		}
 	}
-	return map;	
+	return 0;	
 } 
 
-char ** mapRandHouseSetup(char ** map)
+int mapRandHouseGeneration(char ** map)
 {
 	int houseSize = 11;
 	int houseHeight = houseSize;
@@ -159,7 +163,7 @@ char ** mapRandHouseSetup(char ** map)
 		}
 	}
 
-	return map;
+	return 0;
 }
 
 int unblockDoor(char ** map, Position * doorPos)
@@ -176,4 +180,37 @@ int unblockDoor(char ** map, Position * doorPos)
 	}
 
 	return 0;
+}
+
+int mapMovableGeneration(char ** map)
+{
+	int y, x;
+
+	do
+	{
+		y = (rand() % (MAP_HEIGHT - 4) ) + 2;
+		x = (rand() % (MAP_WIDTH - 4) ) + 2;
+	} while (map[y][x] != '.');
+
+	map[y][x] = 'O';
+
+	return 0;
+}
+
+char ** saveMap(char ** map)
+{
+	char ** mapSave;
+	mapSave = malloc(sizeof(char*) * MAP_HEIGHT);
+
+	for(int y = 0; y < MAP_HEIGHT; y++)
+	{
+		mapSave[y] = malloc(sizeof(char*) * MAP_WIDTH);
+
+		for(int x = 0; x < MAP_WIDTH; x++)
+		{
+			mapSave[y][x] = map[y][x];
+		}
+	}
+
+	return mapSave;
 }

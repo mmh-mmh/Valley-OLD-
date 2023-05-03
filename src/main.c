@@ -13,6 +13,13 @@ int main()
 	PlayerStruct * player = playerSetup(PLAYER_START_POSITION_Y, PLAYER_START_POSITION_X); 
 	
 	char ** map = mapSetup(MAP_HEIGHT, MAP_WIDTH);
+
+	mapInmovableGeneration(map);
+
+	char ** mapInmovableSave = saveMap(map);
+
+	mapMovableGeneration(map);
+	
 	
 	WINDOW * gameWindow = gameWindowSetup(GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH, GAME_WINDOW_POSITION_Y, GAME_WINDOW_POSITION_X);
 	
@@ -23,7 +30,7 @@ int main()
 	{
 		
 		//change the player position
-		handlePlayerInput(player, input, map);
+		handlePlayerInput(player, input, map, mapInmovableSave);
 
 		//draw map arround the player, in the window's boundaries
 		drawMapInGameWindow(gameWindow, map, player);

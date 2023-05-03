@@ -19,36 +19,37 @@ PlayerStruct * playerSetup(int y, int x)
 }
 
 
-int handlePlayerInput(PlayerStruct * player, char input, char ** map)
+int handlePlayerInput(PlayerStruct * player, char input, char ** map, char ** mapInmovableSave)
 {
-	Position * newPosition;
-	newPosition = malloc(sizeof(Position));
+	Position * posDif;
+	posDif = malloc(sizeof(Position));
 	
 	switch(input)
 	{
+		
 		case 'z' :
 		case 'Z' :
-			newPosition->y = player->position.y - 1;
-			newPosition->x = player->position.x;
-			playerMove(player, newPosition, map);
+			posDif->y = - 1;
+			posDif->x = 0;
+			playerMove(player, posDif, map, mapInmovableSave);
 			break;
 		case 's' :
 		case 'S' :
-			newPosition->y = player->position.y + 1;
-			newPosition->x = player->position.x;
-			playerMove(player, newPosition, map);
+			posDif->y = + 1;
+			posDif->x = 0;
+			playerMove(player, posDif, map, mapInmovableSave);
 			break;
 		case 'q' :
 		case 'Q' :
-			newPosition->y = player->position.y;
-			newPosition->x = player->position.x - 1;
-			playerMove(player, newPosition, map);
+			posDif->y = 0;
+			posDif->x = - 1;
+			playerMove(player, posDif, map, mapInmovableSave);
 			break;
 		case 'd' :
 		case 'D' :
-			newPosition->y = player->position.y;
-			newPosition->x = player->position.x + 1;
-			playerMove(player, newPosition, map);
+			posDif->y = 0;
+			posDif->x = + 1;
+			playerMove(player, posDif, map, mapInmovableSave);
 			break;
 		default :
 			break;
@@ -58,19 +59,53 @@ int handlePlayerInput(PlayerStruct * player, char input, char ** map)
 }
 
 
-int playerMove(PlayerStruct * player, Position * newPosition, char ** map)
+int playerMove(PlayerStruct * player, Position * posDif, char ** map, char ** mapInmovableSave)
 {
-	switch (map[newPosition->y][newPosition->x])
+
+	switch (map[player->position.y + posDif->y][player->position.x + posDif->x])
 	{
 		default :
-			player->position.y = newPosition->y;
-			player->position.x = newPosition->x;
+			player->position.y += posDif->y;
+			player->position.x += posDif->x;
 			break;	
 		case '#':
 		case '&':
 			break;
+		case 'O':
+			handleMovable(player, posDif, map, mapInmovableSave);
+			break;
 	}
-	
-	//move(player->position.y, player->position.x);
+
+	return 0;
+}
+
+int handleMovable(PlayerStruct * player, Position * posDiff, char ** map, char ** mapInmovableSave)
+{
+	Position newMovablePosition;
+	Position newPlayerPosition;
+
+	newPlayerPosition.y = player->position.y + posDiff->y;
+	newPlayerPosition.x = player->position.x + posDiff->x;
+
+	newMovablePosition.y = newPlayerPosition.y + posDiff->y;
+	newMovablePosition.x = newPlayerPosition.x + posDiff->x;
+
+	switch(map[newMovablePosition.y][newMovablePosition.x])
+	{
+		case '.':
+		case ',':
+			map[newMovablePosition.y][newMovablePosition.x] = 'O';
+			map[newPlayerPosition.y][newPlayerPosition.x] = mapInmovableSave[newPlayerPosition.y][newPlayerPosition.x];
+
+			player->position.y = newPlayerPosition.y;
+			player->position.x = newPlayerPosition.x;
+
+			break;
+
+		case '#':
+		case '&':
+			break;
+	}
+
 	return 0;
 }

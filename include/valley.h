@@ -46,16 +46,21 @@ void menuLoop();
 
 //player fonctions
 PlayerStruct * playerSetup(int y, int x);
-int handlePlayerInput(PlayerStruct * player, char input, char ** map);
-int playerMove(PlayerStruct * player, Position * newPosition, char ** map);
+int handlePlayerInput(PlayerStruct * player, char input, char ** map, char ** mapInmovableSave);
+int playerMove(PlayerStruct * player, Position * newPosition, char ** map, char ** mapInmovableSave);
+int handleMovable(PlayerStruct * player, Position * newPlayerPosition, char ** map, char ** mapInmovableSave);
 
 //map fonctions
 char ** mapSetup(int height, int width);
+int mapInmovableGeneration(char ** map);
+int mapMovableGeneration(char ** map);
 int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
-char ** mapRandSandSetup(char ** map);
-char ** mapRandHouseSetup(char ** map);
-char ** mapRandRockSetup(char ** map);
+int mapRandSandGeneration(char ** map);
+int mapRandHouseGeneration(char ** map);
+int mapRandRockGeneration(char ** map);
+int mapRandMovableGeneration(char ** map);
 int unblockDoor(char ** map, Position * doorPos);
+char ** saveMap(char ** map);
 
 //window fonctions
 WINDOW * gameWindowSetup(int height, int width, int y, int x);
