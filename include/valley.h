@@ -79,7 +79,7 @@ char ** mapSetup(int height, int width);
 int mapNotMovableGeneration(Level * level);
 int mapMovableGeneration(char ** map);
 int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
-int mapRandSandGeneration(char ** map);
+int mapRandGrassGeneration(char ** map);
 int mapRandHouseGeneration(Level * level);
 int mapRandRockGeneration(char ** map);
 int mapRandMovableGeneration(char ** map);
