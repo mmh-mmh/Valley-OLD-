@@ -71,8 +71,8 @@ void menuLoop();
 //player fonctions
 PlayerStruct * playerSetup(int y, int x);
 int handlePlayerInput(PlayerStruct * player, char input, char ** map, char ** mapInmovableSave);
-int playerMove(PlayerStruct * player, Position * newPosition, char ** map, char ** mapInmovableSave);
-int handleMovable(PlayerStruct * player, Position * newPlayerPosition, char ** map, char ** mapInmovableSave);
+int playerMove(PlayerStruct * player, Position posDiff, char ** map, char ** mapInmovableSave);
+int handleMovable(PlayerStruct * player, Position posDiff, char ** map, char ** mapInmovableSave);
 
 //map fonctions
 char ** mapSetup(int height, int width);
