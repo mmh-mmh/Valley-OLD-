@@ -36,9 +36,6 @@ int main(int argc, char ** argv)
 
 int mainSetup()
 {
-	start_color();
-	use_default_colors();
-
 	srand(time(NULL));
 	initscr();
 	cbreak();
