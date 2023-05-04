@@ -16,18 +16,17 @@ int mainMenu(int numberItems, char * choices[])
     ITEM ** items = malloc(sizeof(**items)*numberItems);
     ITEM * current;
     int i, c, value, x, y;
-    getmaxyx(stdscr, y, x);
-    x = x/2 - 10;
-    y = y/2 + 1;
+
+
     for(i = 0; i < numberItems; i++)
     {
         items[i]= new_item(choices[i],"");
     }
     items[i] = NULL;
     menu = new_menu((ITEM**)items);
-    WINDOW * menuwin = newwin(7, 32, y, x);
+    WINDOW * menuwin = newwin(MENU_WINDOW_HEIGHT, MENU_WINDOW_WIDTH, MENU_WINDOW_POSITION_Y, MENU_WINDOW_POSITION_X);
     keypad(menuwin, TRUE);
-    box(menuwin, -1, -1);
+
     //associer la fenêtre au menu
     set_menu_win(menu, menuwin);
     //créer une sous-fenêtre pour les options
@@ -36,8 +35,13 @@ int mainMenu(int numberItems, char * choices[])
     set_menu_format(menu, numberItems, 1);
     post_menu(menu);
     wrefresh(menuwin);
+
+    int border = -1;
+
     while(true)
-    {
+    {   
+        wborder(menuwin, border, border, border, border, border, border, border, border);
+
         c = wgetch(menuwin);
         switch(c)
         {
@@ -55,7 +59,8 @@ int mainMenu(int numberItems, char * choices[])
                 delwin(menuwin);
                 return value;
         }
-        wrefresh(menuwin);
+
+    wrefresh(menuwin);
     }
 }
 

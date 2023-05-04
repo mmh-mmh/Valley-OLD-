@@ -4,9 +4,9 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
-#include <menu.h>
 #include <unistd.h>
 #include "inventory.h"
+#include "hmenu.h"
 
 #define MAP_HEIGHT 41
 #define MAP_WIDTH 81
