@@ -8,7 +8,7 @@ Level * createLevel()
 
     newLevel->map = mapSetup(MAP_HEIGHT, MAP_WIDTH);
 
-	mapInmovableGeneration(newLevel->map);
+	mapNotMovableGeneration(newLevel);
 
 	newLevel->mapSave = saveMap(newLevel->map);
 

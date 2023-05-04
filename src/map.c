@@ -27,11 +27,11 @@ char ** mapSetup(int height, int width)
 	return map;
 }
 
-int mapInmovableGeneration(char ** map)
+int mapNotMovableGeneration(Level * level)
 {
-	mapRandSandGeneration(map);
-	mapRandRockGeneration(map);
-	mapRandHouseGeneration(map);
+	mapRandSandGeneration(level->map);
+	mapRandRockGeneration(level->map);
+	mapRandHouseGeneration(level);
 
 	return 0;
 }
@@ -113,14 +113,16 @@ int mapRandRockGeneration(char ** map)
 	return 0;	
 } 
 
-int mapRandHouseGeneration(char ** map)
+int mapRandHouseGeneration(Level * level)
 {
-	int houseSize = 11;
-	int houseHeight = houseSize;
-	int houseWidth = houseSize*2;
+	int houseHeight = HOUSE_SIZE;
+	int houseWidth = HOUSE_SIZE*2;
 	int houseY = (rand() % (MAP_HEIGHT - (houseHeight + 3))) + 2;
 	int houseX = (rand() % (MAP_WIDTH - (houseWidth + 3))) + 2;
-	
+
+	//level->HousePosition.y = houseY;
+	//level->HousePosition.x = houseX;
+
 	Position doorPos;
 	
 	switch (rand()%4)
@@ -149,16 +151,16 @@ int mapRandHouseGeneration(char ** map)
 		{
 			if(x == doorPos.x && y == doorPos.y)
 			{
-				map[y][x] = ' ';
-				unblockDoor(map, &doorPos);
+				level->map[y][x] = ' ';
+				unblockDoor(level->map, &doorPos);
 			}
 			else if (y == houseY || y == houseY + houseHeight - 1 || x == houseX || x == houseX + houseWidth - 1)
 			{
-				map[y][x] = '#';
+				level->map[y][x] = '#';
 			}
 			else
 			{
-				map[y][x] = ' ';
+				level->map[y][x] = ' ';
 			}
 		}
 	}

@@ -19,6 +19,8 @@
 #define PLAYER_START_POSITION_Y MAP_HEIGHT/2
 #define PLAYER_START_POSITION_X MAP_WIDTH/2
 
+#define HOUSE_SIZE 11
+
 
 typedef struct Position
 {
@@ -40,22 +42,17 @@ typedef struct PlayerStruct
 	Item ** backpack;
 } PlayerStruct;
 
-typedef struct HouseStruct
-{
-	Position position;
-
-} HouseStruct;
-
 typedef struct Level
 {
 	char ** map;
 	char ** mapSave;
 
-	//MonsterStruct ** monsters;
-	//int numberOfMonsters;
+	Position * HousePosition;
 
 	PlayerStruct * player;
-	//HouseStruct house;
+
+	//MonsterStruct ** monsters;
+	//int numberOfMonsters;
 } Level;
 
 
@@ -79,11 +76,11 @@ int handleMovable(PlayerStruct * player, Position * newPlayerPosition, char ** m
 
 //map fonctions
 char ** mapSetup(int height, int width);
-int mapInmovableGeneration(char ** map);
+int mapNotMovableGeneration(Level * level);
 int mapMovableGeneration(char ** map);
 int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
 int mapRandSandGeneration(char ** map);
-int mapRandHouseGeneration(char ** map);
+int mapRandHouseGeneration(Level * level);
 int mapRandRockGeneration(char ** map);
 int mapRandMovableGeneration(char ** map);
 int unblockDoor(char ** map, Position * doorPos);
