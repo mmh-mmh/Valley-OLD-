@@ -6,7 +6,7 @@
 #include <time.h>
 #include <unistd.h>
 #include "inventory.h"
-#include "hmenu.h"
+#include "mainMenu.h"
 
 #define MAP_HEIGHT 41
 #define MAP_WIDTH 81
