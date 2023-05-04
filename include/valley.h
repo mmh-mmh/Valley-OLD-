@@ -32,8 +32,11 @@ typedef struct PlayerStruct
 	Item ** backpack;
 } PlayerStruct;
 
+
+typedef enum {SPYDER_TYPE, IMP_TYPE}Mobtype;
 typedef struct
 {
+	Mobtype type;
 	int health;
 	int attack;
 	char skin;
@@ -54,13 +57,13 @@ int playerMove(PlayerStruct * player, Position * newPosition, char ** map);
 char ** mapSetup(int height, int width);
 int drawMapInGameWindow(WINDOW * window, char ** map, PlayerStruct * player);
 char ** mapRandSandSetup(char ** map);
-char ** mapRandHouseSetup(char ** map,Position Housepos);
+char ** mapRandHouseSetup(char ** map);
 char ** mapRandRockSetup(char ** map);
 int unblockDoor(char ** map, Position * doorPos);
 //Mob functions
-MobStruct * genMonster(int health,int attack,char skin,int movement,int y,int x);
-void addmonster(char ** map, int width,int height,Position *housepos);
 
+MobStruct * genMonster( int health, int attack, char skin);
+MobStruct * Mobselect(int mobtype);
 //window fonctions
 WINDOW * gameWindowSetup(int height, int width, int y, int x);
 

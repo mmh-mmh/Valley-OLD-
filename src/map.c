@@ -28,8 +28,8 @@ char ** mapSetup(int height, int width)
 	
 	map = mapRandSandSetup(map);
 	map = mapRandRockSetup(map);
-	map = mapRandHouseSetup(map,housepos);
-	addmonster(map,MAP_WIDTH-1,MAP_HEIGHT-1,Housepos);
+	map = mapRandHouseSetup(map);
+
 	return map;
 }
 
@@ -110,15 +110,13 @@ char ** mapRandRockSetup(char ** map)
 	return map;	
 } 
 
-char ** mapRandHouseSetup(char ** map, Position *housepos)
+char ** mapRandHouseSetup(char ** map)
 {
 	int houseSize = 11;
 	int houseHeight = houseSize;
 	int houseWidth = houseSize*2;
 	int houseY = (rand() % (MAP_HEIGHT - (houseHeight + 3))) + 2;
 	int houseX = (rand() % (MAP_WIDTH - (houseWidth + 3))) + 2;
-	*housepos.x=houseX;
-	*housepos.y=houseY;
 	Position doorPos;
 	
 	switch (rand()%4)
@@ -178,20 +176,4 @@ int unblockDoor(char ** map, Position * doorPos)
 	}
 
 	return 0;
-}
-
-//~ // Add monster in the map function
-void addmonster(char ** map, int width,int height,Position *housepos)
-{
-	MobStruct *monster;
-	monster=malloc(sizeof(MobStruct*));
-	int tab[4];
-	tab[0]=sqrt(double(Pow(housepos.x,2)+Pow(housepos.y,2)));
-	tab[1]=sqrt(double(Pow(housepos.x,2)+Pow(housepos.y-width,2)));
-	tab[2]=sqrt(double(Pow(housepos.x-height,2)+Pow(housepos.y,2)));
-	tab[3]=sqrt(double(Pow(housepos.x-height,2)+Pow(housepos.y-width,2)));
-	
-	mvprintw(50,50,"%d",tab[0]);
-	
-	
 }
