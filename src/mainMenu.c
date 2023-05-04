@@ -4,6 +4,7 @@ void closeMenu(int numberItems, MENU * menu, ITEM ** items)
 {
     unpost_menu(menu);
     free_menu(menu);
+
     for (int i = 0; i < numberItems; i++)
     {
         free_item(items[i]);
@@ -23,6 +24,7 @@ int mainMenu(int numberItems, char * choices[])
         items[i]= new_item(choices[i],"");
     }
     items[i] = NULL;
+
     menu = new_menu((ITEM**)items);
     WINDOW * menuwin = newwin(MENU_WINDOW_HEIGHT, MENU_WINDOW_WIDTH, MENU_WINDOW_POSITION_Y, MENU_WINDOW_POSITION_X);
     keypad(menuwin, TRUE);
@@ -36,11 +38,11 @@ int mainMenu(int numberItems, char * choices[])
     post_menu(menu);
     wrefresh(menuwin);
 
-    int border = -1;
+    
 
     while(true)
     {   
-        wborder(menuwin, border, border, border, border, border, border, border, border);
+        wborder(menuwin, -1, -1, -1, -1, -1, -1, -1, -1);
         wresize(menuwin, MENU_WINDOW_HEIGHT, MENU_WINDOW_WIDTH);
 
         c = wgetch(menuwin);

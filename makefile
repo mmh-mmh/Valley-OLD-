@@ -5,9 +5,9 @@ IDIR = ./include/
 SRCDIR = ./src/
 
 SOURCES = $(SRCDIR)*.c
-all: valley run clean
+all: valley
 
-valley:
+valley:	$(SOURCES)
 	$(CC) $(SOURCES) $(CFLAGS) -o $@
 
 run:
