@@ -37,7 +37,8 @@ int main(int argc, char ** argv)
 int mainSetup()
 {
 	start_color();
-	init_pair(1, COLOR_RED, COLOR_BLACK);
+	use_default_colors();
+
 	srand(time(NULL));
 	initscr();
 	cbreak();

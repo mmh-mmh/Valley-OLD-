@@ -91,8 +91,7 @@ int handleMovable(PlayerStruct * player, Position posDiff, char ** map, char ** 
 
 	switch(map[newMovablePosition.y][newMovablePosition.x])
 	{
-		case '.':
-		case ',':
+		default :
 			map[newMovablePosition.y][newMovablePosition.x] = 'O';
 			map[newPlayerPosition.y][newPlayerPosition.x] = mapSave[newPlayerPosition.y][newPlayerPosition.x];
 
