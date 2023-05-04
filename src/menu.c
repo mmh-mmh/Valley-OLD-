@@ -41,6 +41,7 @@ int mainMenu(int numberItems, char * choices[])
     while(true)
     {   
         wborder(menuwin, border, border, border, border, border, border, border, border);
+        wresize(menuwin, MENU_WINDOW_HEIGHT, MENU_WINDOW_WIDTH);
 
         c = wgetch(menuwin);
         switch(c)
