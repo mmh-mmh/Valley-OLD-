@@ -22,9 +22,15 @@
 
 typedef struct Position
 {
-	int x;
 	int y;
+	int x;
 } Position;
+
+typedef struct Dimension
+{
+	int height;
+	int width;
+} Dimension;
 
 typedef struct PlayerStruct
 {
@@ -34,6 +40,27 @@ typedef struct PlayerStruct
 	Item ** backpack;
 } PlayerStruct;
 
+typedef struct HouseStruct
+{
+	Position position;
+
+} HouseStruct;
+
+typedef struct Level
+{
+	char ** map;
+	char ** mapSave;
+
+	//MonsterStruct ** monsters;
+	//int numberOfMonsters;
+
+	PlayerStruct * player;
+	//HouseStruct house;
+} Level;
+
+
+//level fonctions 
+Level * createLevel();
 
 //main fonctions
 int mainSetup();

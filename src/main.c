@@ -1,7 +1,7 @@
 #include "valley.h"
 
 
-int main()
+int main(int argc, char ** argv)
 {
 	
 	mainSetup();
@@ -10,30 +10,22 @@ int main()
 	
 	menuLoop();
 
-	PlayerStruct * player = playerSetup(PLAYER_START_POSITION_Y, PLAYER_START_POSITION_X); 
-	
-	char ** map = mapSetup(MAP_HEIGHT, MAP_WIDTH);
-
-	mapInmovableGeneration(map);
-
-	char ** mapInmovableSave = saveMap(map);
-
-	mapMovableGeneration(map);
-	
+	Level * level = createLevel();
 	
 	WINDOW * gameWindow = gameWindowSetup(GAME_WINDOW_HEIGHT, GAME_WINDOW_WIDTH, GAME_WINDOW_POSITION_Y, GAME_WINDOW_POSITION_X);
 	
 	
 	char input;
 	
+	//main game loop
 	while ( (input = getch()) != 'a')
 	{
 		
 		//change the player position
-		handlePlayerInput(player, input, map, mapInmovableSave);
+		handlePlayerInput(level->player, input, level->map, level->mapSave);
 
 		//draw map arround the player, in the window's boundaries
-		drawMapInGameWindow(gameWindow, map, player);
+		drawMapInGameWindow(gameWindow, level->map, level->player);
 	}
 	
 	endwin();
@@ -52,6 +44,7 @@ int mainSetup()
 	curs_set(0);
 }
 
+/*
 void loading()
 {
     printf("\033[8;100;200t"); // ajuste la taille de la fenêtre
@@ -70,3 +63,4 @@ void loading()
     printf("\033[2J"); // nettoie l'écran
     printf("\033[0;0H");
 }
+*/
