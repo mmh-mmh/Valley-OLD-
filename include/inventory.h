@@ -13,8 +13,6 @@ typedef struct //status of the weapon
 	int durability;
 }Weaponstats; 
 
-
-
 typedef enum{WEAPON_TYPE, OBJECTS_TYPE,POTIONS_TYPE}itemType;
 typedef struct 
 {
@@ -29,4 +27,5 @@ typedef struct
 }Item;
 
 Item * genSword(int damage, int durability, char *name_sword);
+
 #endif

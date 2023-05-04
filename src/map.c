@@ -4,33 +4,47 @@ char ** mapSetup(int height, int width)
 {	
 	char ** map;
 	map = malloc(sizeof(char*) * height);
+
 	Position *Housepos=NULL;
 	for(int i = 0; i < height; i++)
+
+	for(int y = 0; y < height; y++)
+
 	{
-		map[i] = malloc(sizeof(char*) * width);
+		map[y] = malloc(sizeof(char*) * width);
 		
 	}
 	
-	for (int i = 0; i < height; i++)
+	for (int y = 0; y < height; y++)
 	{
-		for (int j = 0; j < width; j++)
+		for (int x = 0; x < width; x++)
 		{
-			if (i == 0 || i == height-1 || j == 0 || j == width-1)
+			if (y == 0 || y == height-1 || x == 0 || x == width-1)
 			{
-				map[i][j] = '#';
+				map[y][x] = '#';
 			}
 			else
 			{
-				map[i][j] = '.';
+				map[y][x] = ' ';
 			}
 		}
 	}
+
 	
 	map = mapRandSandSetup(map);
 	map = mapRandRockSetup(map);
 	map = mapRandHouseSetup(map);
 
 	return map;
+}
+
+int mapNotMovableGeneration(Level * level)
+{
+	mapRandGrassGeneration(level->map);
+	mapRandRockGeneration(level->map);
+	mapRandHouseGeneration(level);
+
+	return 0;
 }
 
 
@@ -41,7 +55,11 @@ int drawMapInGameWindow(WINDOW * gameWindow, char ** map, PlayerStruct * player)
 	mapStartPos.x = player->position.x - (GAME_WINDOW_WIDTH / 2);
 	
 	Position mapPos;
-	
+
+	start_color();
+	use_default_colors();
+	init_pair(1, COLOR_GREEN, -1);
+
 	for (int i = 1; i <= GAME_WINDOW_HEIGHT - 2; i++)
 	{
 		for (int j = 1; j <= GAME_WINDOW_WIDTH - 2; j++)
@@ -50,8 +68,17 @@ int drawMapInGameWindow(WINDOW * gameWindow, char ** map, PlayerStruct * player)
 			mapPos.x = mapStartPos.x + j;
 			
 			if (mapPos.y >= 0 && mapPos.y < MAP_HEIGHT && mapPos.x >= 0 && mapPos.x < MAP_WIDTH)
-			{
+			{	
+				if(map[mapPos.y][mapPos.x] == ',' || map[mapPos.y][mapPos.x] == '"')
+				{
+				wattron(gameWindow, COLOR_PAIR(1));
 				mvwprintw(gameWindow, i, j, "%c", map[mapPos.y][mapPos.x]);
+				wattroff(gameWindow, COLOR_PAIR(1));
+				}
+				else
+				{
+					mvwprintw(gameWindow, i, j, "%c", map[mapPos.y][mapPos.x]);
+				}
 			}
 			else
 			{
@@ -71,52 +98,67 @@ int drawMapInGameWindow(WINDOW * gameWindow, char ** map, PlayerStruct * player)
 
 
 
-char ** mapRandSandSetup(char ** map)
+int mapRandGrassGeneration(char ** map)
 {
 	
-	int proba = 5;
+	int proba1 = 8;
+	int proba2 = 16;
 	int chance = 100;
-	
-	for (int y = 0 ; y < MAP_HEIGHT; y++)
+
+	for (int y = 1 ; y < MAP_HEIGHT - 1; y++)
 	{
-		for (int x = 0; x < MAP_WIDTH; x++)
+		for (int x = 1; x < MAP_WIDTH - 1; x++)
 		{
-			if (rand() % chance < proba && map[y][x] == '.')
+			int randomNumber = rand() % chance;
+
+			if (randomNumber < proba1)
 			{
-				map[y][x] = ',';
+				map[y][x] = ',' ;
+			}
+
+			else if (randomNumber < proba2)
+			{
+				map[y][x] = '"';
 			}
 		}
 	}
-	return map;
+
+	return 0;
 }
 
-char ** mapRandRockSetup(char ** map)
+int mapRandRockGeneration(char ** map)
 {
 
 	int proba = 1;
 	int chance = 300;
 	
-	for (int y = 0 ; y < MAP_HEIGHT; y++)
+	for (int y = 1 ; y < MAP_HEIGHT; y++)
 	{
-		for (int x = 0; x < MAP_WIDTH; x++)
+		for (int x = 1; x < MAP_WIDTH; x++)
 		{
 			
-			if (rand() % chance < proba && map[y][x] == '.')
+			if (rand() % chance < proba)
 			{
 				map[y][x] = '&';
 			}
 		}
 	}
-	return map;	
+	return 0;	
 } 
 
-char ** mapRandHouseSetup(char ** map)
+int mapRandHouseGeneration(Level * level)
 {
-	int houseSize = 11;
-	int houseHeight = houseSize;
-	int houseWidth = houseSize*2;
+	int houseHeight = HOUSE_SIZE;
+	int houseWidth = HOUSE_SIZE*2;
 	int houseY = (rand() % (MAP_HEIGHT - (houseHeight + 3))) + 2;
 	int houseX = (rand() % (MAP_WIDTH - (houseWidth + 3))) + 2;
+
+
+
+	//level->HousePosition.y = houseY;
+	//level->HousePosition.x = houseX;
+
+
 	Position doorPos;
 	
 	switch (rand()%4)
@@ -145,21 +187,21 @@ char ** mapRandHouseSetup(char ** map)
 		{
 			if(x == doorPos.x && y == doorPos.y)
 			{
-				map[y][x] = ' ';
-				unblockDoor(map, &doorPos);
+				level->map[y][x] = ' ';
+				unblockDoor(level->map, &doorPos);
 			}
 			else if (y == houseY || y == houseY + houseHeight - 1 || x == houseX || x == houseX + houseWidth - 1)
 			{
-				map[y][x] = '#';
+				level->map[y][x] = '#';
 			}
 			else
 			{
-				map[y][x] = ' ';
+				level->map[y][x] = ' ';
 			}
 		}
 	}
 
-	return map;
+	return 0;
 }
 
 int unblockDoor(char ** map, Position * doorPos)
@@ -170,10 +212,45 @@ int unblockDoor(char ** map, Position * doorPos)
 		{
 			if(map[y][x] == '&')
 			{
-				map[y][x] = '.';
+				map[y][x] = ' ';
 			}
 		}
 	}
 
 	return 0;
 }
+
+
+int mapMovableGeneration(char ** map)
+{
+	int y, x;
+
+	do
+	{
+		y = (rand() % (MAP_HEIGHT - 4) ) + 2;
+		x = (rand() % (MAP_WIDTH - 4) ) + 2;
+	} while (map[y][x] == '#');
+
+	map[y][x] = 'O';
+
+	return 0;
+}
+
+char ** saveMap(char ** map)
+{
+	char ** mapSave;
+	mapSave = malloc(sizeof(char*) * MAP_HEIGHT);
+
+	for(int y = 0; y < MAP_HEIGHT; y++)
+	{
+		mapSave[y] = malloc(sizeof(char*) * MAP_WIDTH);
+
+		for(int x = 0; x < MAP_WIDTH; x++)
+		{
+			mapSave[y][x] = map[y][x];
+		}
+	}
+
+	return mapSave;
+}
+
