@@ -27,6 +27,8 @@ int main(int argc, char ** argv)
 		//draw map arround the player, in the window's boundaries
 		drawMapInGameWindow(gameWindow, level->map, level->player);
 	}
+
+	free(level);
 	
 	endwin();
 }
