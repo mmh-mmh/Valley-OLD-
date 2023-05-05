@@ -1,5 +1,4 @@
 #include "valley.h"
-#include <math.h>
 char ** mapSetup(int height, int width)
 {	
 	char ** map;
