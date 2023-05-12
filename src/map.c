@@ -1,10 +1,14 @@
 #include "valley.h"
-
 char ** mapSetup(int height, int width)
 {	
 	char ** map;
 	map = malloc(sizeof(char*) * height);
+
+	Position *Housepos=NULL;
+	for(int i = 0; i < height; i++)
+
 	for(int y = 0; y < height; y++)
+
 	{
 		map[y] = malloc(sizeof(char*) * width);
 		
@@ -24,6 +28,12 @@ char ** mapSetup(int height, int width)
 			}
 		}
 	}
+
+	
+	map = mapRandSandSetup(map);
+	map = mapRandRockSetup(map);
+	map = mapRandHouseSetup(map);
+
 	return map;
 }
 
@@ -142,8 +152,11 @@ int mapRandHouseGeneration(Level * level)
 	int houseY = (rand() % (MAP_HEIGHT - (houseHeight + 3))) + 2;
 	int houseX = (rand() % (MAP_WIDTH - (houseWidth + 3))) + 2;
 
+
+
 	//level->HousePosition.y = houseY;
 	//level->HousePosition.x = houseX;
+
 
 	Position doorPos;
 	
@@ -206,6 +219,7 @@ int unblockDoor(char ** map, Position * doorPos)
 	return 0;
 }
 
+
 int mapMovableGeneration(char ** map)
 {
 	int y, x;
@@ -238,3 +252,4 @@ char ** saveMap(char ** map)
 
 	return mapSave;
 }
+

@@ -59,6 +59,18 @@ typedef struct Level
 //level fonctions 
 Level * createLevel();
 
+typedef enum {SPYDER_TYPE, IMP_TYPE}Mobtype;
+typedef struct
+{
+	Mobtype type;
+	int health;
+	int attack;
+	char skin;
+	int movement;
+	Position coordinates;
+}MobStruct;
+
+
 //main fonctions
 int mainSetup();
 void loading();
@@ -84,8 +96,14 @@ int mapRandHouseGeneration(Level * level);
 int mapRandRockGeneration(char ** map);
 int mapRandMovableGeneration(char ** map);
 int unblockDoor(char ** map, Position * doorPos);
+
+//Mob functions
+
 char ** saveMap(char ** map);
 
+
+MobStruct * genMonster( int health, int attack, char skin);
+MobStruct * Mobselect(int mobtype);
 //window fonctions
 WINDOW * gameWindowSetup(int height, int width, int y, int x);
 
